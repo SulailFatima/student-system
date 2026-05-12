@@ -1,0 +1,23 @@
+name: SonarCloud Analysis
+on:
+push:
+branches:
+- main
+jobs:
+sonarcloud:
+runs-on: ubuntu-latest
+steps:
+- name: Checkout code
+uses: actions/checkout@v4
+with:
+fetch-depth: 0
+- name: SonarCloud Scan
+uses: SonarSource/sonarqube-scan-action@v6
+env:
+SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+SONAR_HOST_URL: https://sonarcloud.io
+with:
+args: >
+-Dsonar.projectKey=YOUR_PROJECT_KEY
+-Dsonar.organization=YOUR_ORG
+-Dsonar.sources=.
